@@ -13,6 +13,10 @@ module.exports = {
     {
       files: ['*.stories.@(ts|tsx|js)'],
       extends: ['plugin:storybook/recommended']
+    },
+    {
+      files: ['**/?(*.)+(spec|test).+(ts|tsx|js)'],
+      extends: ['plugin:jest-dom/recommended', 'plugin:testing-library/react']
     }
   ],
   settings: {
@@ -20,7 +24,7 @@ module.exports = {
       version: "detect"
     }
   },
-  plugins: ["react"],
+  plugins: ["react", "jest-dom", "testing-library"],
   ignorePatterns: ["vite-env.d.ts", "vite.config.ts"],
   rules: {
     "react/react-in-jsx-scope": "off",
