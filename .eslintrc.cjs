@@ -15,6 +15,11 @@ module.exports = {
       extends: ['plugin:storybook/recommended']
     }
   ],
+  settings: {
+    react: {
+      version: "detect"
+    }
+  },
   plugins: ["react"],
   ignorePatterns: ["vite-env.d.ts", "vite.config.ts"],
   rules: {
