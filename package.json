@@ -14,6 +14,7 @@
     "test": "vitest run"
   },
   "dependencies": {
+    "@stitches/react": "^1.2.8",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
