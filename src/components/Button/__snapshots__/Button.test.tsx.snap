@@ -1,0 +1,17 @@
+// Vitest Snapshot v1
+
+exports[`Testing Button Component >  1`] = `
+<div>
+  <button
+    class="c-eOAPzK c-eOAPzK-gZVdKL-color-primary"
+  />
+</div>
+`;
+
+exports[`Testing Button Component > snapshot test 1`] = `
+<div>
+  <button
+    class="c-eOAPzK c-eOAPzK-gZVdKL-color-primary"
+  />
+</div>
+`;
