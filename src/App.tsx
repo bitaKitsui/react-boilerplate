@@ -1,5 +1,6 @@
 import { type FC } from "react";
 import { create } from "zustand";
+import { shallow } from "zustand/shallow";
 import "./App.css";
 
 type UseCounterType = {
@@ -17,7 +18,7 @@ const useCounter = create<UseCounterType>((set) => {
 });
 
 const DisplayCounter: FC = () => {
-  const counter = useCounter((state) => state.counter);
+  const counter = useCounter((state) => state.counter, shallow);
   return <div>Counter: {counter}</div>;
 };
 
