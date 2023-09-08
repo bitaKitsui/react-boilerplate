@@ -1,37 +1,72 @@
-import { type FC } from "react";
-import { create } from "zustand";
-import { shallow } from "zustand/shallow";
+import {
+  type ChangeEventHandler,
+  type FC,
+  type FormEventHandler,
+  useState,
+} from "react";
 import "./App.css";
+import { useStore } from "./hooks/useStore.ts";
 
-type UseCounterType = {
-  counter: number;
-  incrementCounter: () => void;
+const DisplayTodos: FC = () => {
+  const { todos, toggleTodo, deleteTodo } = useStore((state) => {
+    return {
+      todos: state.todos,
+      toggleTodo: state.toggleTodo,
+      deleteTodo: state.deleteTodo,
+    };
+  });
+  return (
+    <ul>
+      {todos.map((todo) => (
+        <li
+          key={todo.id}
+          style={{
+            textDecoration: todo.completed ? "line-through" : "none",
+            cursor: "pointer",
+          }}
+          onClick={() => {
+            toggleTodo(todo.id);
+          }}
+        >
+          {todo.text}
+          <button
+            onClick={() => {
+              deleteTodo(todo.id);
+            }}
+          >
+            Delete
+          </button>
+        </li>
+      ))}
+    </ul>
+  );
 };
 
-const useCounter = create<UseCounterType>((set) => {
-  return {
-    counter: 0,
-    incrementCounter: () => {
-      set((state) => ({ counter: state.counter + 1 }));
-    },
+const TodosControl: FC = () => {
+  const addTodo = useStore((state) => state.addTodo);
+  const [text, setText] = useState("");
+  const handleChangeInput: ChangeEventHandler<HTMLInputElement> = (event) => {
+    setText(event.target.value);
   };
-});
-
-const DisplayCounter: FC = () => {
-  const counter = useCounter((state) => state.counter, shallow);
-  return <div>Counter: {counter}</div>;
-};
-
-const CounterControl: FC = () => {
-  const incrementCounter = useCounter((state) => state.incrementCounter);
-  return <button onClick={incrementCounter}>Increment</button>;
+  const handleSubmit: FormEventHandler<HTMLFormElement> = (event) => {
+    event.preventDefault();
+    if (text === "") return;
+    addTodo(text);
+    setText("");
+  };
+  return (
+    <form onSubmit={handleSubmit}>
+      <input type="text" value={text} onChange={handleChangeInput} />
+      <button>Add</button>
+    </form>
+  );
 };
 
 export const App: FC = () => {
   return (
-    <div>
-      <DisplayCounter />
-      <CounterControl />
-    </div>
+    <>
+      <DisplayTodos />
+      <TodosControl />
+    </>
   );
 };
