@@ -1,6 +1,7 @@
 import { type ComponentProps, type FC, useRef, useEffect } from "react";
 import "./Dialog.css";
 import { useEscapeKey } from "./hooks/useEscapeKey.ts";
+import { useOutsideClick } from "./hooks/useOutsideClick.ts";
 
 type Props = ComponentProps<"dialog"> & {
   handleClose: () => void;
@@ -11,6 +12,7 @@ export const Dialog: FC<Props> = ({ open, handleClose }) => {
   const noButtonRef = useRef<HTMLButtonElement>(null);
 
   useEscapeKey(handleClose);
+  useOutsideClick(handleClose, dialogRef);
 
   useEffect(() => {
     if (noButtonRef.current != null) {
