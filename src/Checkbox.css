@@ -1,0 +1,8 @@
+.checkboxes {
+    list-style: none;
+}
+
+.checkbox-label:focus,
+.checkbox-label:hover {
+    border: 2px solid #005a9c;
+}

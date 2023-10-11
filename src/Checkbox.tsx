@@ -1,12 +1,35 @@
-import { type FC, useReducer } from "react";
+import { createRef, type FC, useCallback, useEffect, useReducer } from "react";
 import { CHECKBOXES_LIST_ITEMS, HEADING_ID } from "./const";
 import { checkboxesReducer } from "./reducers";
 
 export const Checkbox: FC = () => {
+  const checkboxRefs = CHECKBOXES_LIST_ITEMS.map(() =>
+    createRef<HTMLLabelElement>(),
+  );
+
   const [_state, dispatch] = useReducer(
     checkboxesReducer,
     CHECKBOXES_LIST_ITEMS,
   );
+
+  useEffect(() => {
+    if (checkboxRefs[0].current != null) {
+      checkboxRefs[0].current?.focus();
+    }
+  }, [checkboxRefs]);
+
+  const handleEnterKey = useCallback((event: KeyboardEvent) => {
+    if (event.key === "Enter") {
+      dispatch({ type: "CHECK", id: "lettuce" });
+    }
+  }, []);
+
+  useEffect(() => {
+    document.addEventListener("keyup", handleEnterKey, false);
+    return () => {
+      document.removeEventListener("keyup", handleEnterKey, false);
+    };
+  }, [handleEnterKey]);
 
   return (
     <div>
@@ -15,7 +38,7 @@ export const Checkbox: FC = () => {
         <ul className="checkboxes">
           {CHECKBOXES_LIST_ITEMS.map((item) => (
             <li key={item.label}>
-              <label>
+              <label className="checkbox-label" ref={checkboxRefs[item.index]}>
                 <input
                   id={item.id}
                   type="checkbox"
