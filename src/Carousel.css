@@ -1,0 +1,30 @@
+.carousel {
+    background-color: #040404;
+    max-width: 900px;
+}
+
+.carousel .carousel-inner {
+    position: relative;
+}
+
+.carousel .carousel-items {
+    padding: 5px;
+}
+
+.carousel .carousel-items.focus {
+    padding: 2px;
+    border: solid 3px #005a9c;
+}
+
+.carousel .carousel-item {
+    display: none;
+    max-height: 400px;
+    max-width: 900px;
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+}
+
+.carousel .carousel-item.active {
+    display: block;
+}
